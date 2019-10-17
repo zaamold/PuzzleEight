@@ -9,15 +9,32 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The View was set up using WindowBuilder,
+ * and contains all logic regarding the creation
+ * and maintenance of the frame and its nested PuzzlePanel
+ * @author zacharyaamold
+ *
+ */
 public class View extends JFrame {
 
+	// Declaring global variables
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
 	private Controller myController;
 	
-	
+	/**
+	 * Constructor creates the frame, initializes
+	 * the PuzzlePanel that displays the game, and
+	 * creates and sets up all buttons
+	 * @param c The Controller
+	 * @param width The width of the PuzzlePanel
+	 * @param height The height of the PuzzlePanel
+	 */
 	public View(Controller c, int width, int height) {
 		myController = c;
+		
+		// Frame Setup
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 375);
 		mainPanel = new JPanel();
@@ -30,8 +47,8 @@ public class View extends JFrame {
 		gbl_mainPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		mainPanel.setLayout(gbl_mainPanel);
 		
+		// PuzzlePanel creation and setup
 		PuzzlePanel pPanel = new PuzzlePanel(myController, width, height);
-//		JPanel pPanel = new JPanel();
 		GridBagConstraints gbc_pPanel = new GridBagConstraints();
 		gbc_pPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_pPanel.fill = GridBagConstraints.BOTH;
@@ -39,6 +56,7 @@ public class View extends JFrame {
 		gbc_pPanel.gridy = 0;
 		mainPanel.add(pPanel, gbc_pPanel);
 		
+		// Button Panel setup
 		JPanel buttonPanel = new JPanel();
 		GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
 		gbc_buttonPanel.fill = GridBagConstraints.BOTH;
@@ -52,6 +70,7 @@ public class View extends JFrame {
 		gbl_buttonPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
+		// Randomize Button randomizes the tile locations
 		JButton btnRandomize = new JButton("Randomize");
 		btnRandomize.addActionListener(new ActionListener() {
 			@Override
@@ -67,6 +86,7 @@ public class View extends JFrame {
 		gbc_btnRandomize.gridy = 0;
 		buttonPanel.add(btnRandomize, gbc_btnRandomize);
 		
+		// Exit button closes the program
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 
@@ -77,6 +97,7 @@ public class View extends JFrame {
 			
 		});
 		
+		// Reset button moves all Pieces back to default positions
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			@Override
@@ -96,6 +117,7 @@ public class View extends JFrame {
 		gbc_btnExit.gridy = 0;
 		buttonPanel.add(btnExit, gbc_btnExit);
 		
+		// Final frame setup
 		this.pack();
 		this.setVisible(true);
 	}
